@@ -69,7 +69,11 @@ class CreateDb
                 ('mailer_mode', '0', UNIX_TIMESTAMP(NOW())),
                 ('mailer_password', '1234', UNIX_TIMESTAMP(NOW())),
                 ('mailer_port', '587', UNIX_TIMESTAMP(NOW())),
-                ('mailer_username', 'ngodingin.indonesia@gmail.com', UNIX_TIMESTAMP(NOW()))
+                ('mailer_username', 'ngodingin.indonesia@gmail.com', UNIX_TIMESTAMP(NOW())),
+                ('web_title', $dbName, UNIX_TIMESTAMP(NOW())),
+                ('web_desc', $dbName.' Project', UNIX_TIMESTAMP(NOW())),
+                ('web_icon', 'favicon.ico', UNIX_TIMESTAMP(NOW())),
+                ('web_logo', 'favicon.ico', UNIX_TIMESTAMP(NOW()))
             ");
 
             $dynamicDB->trans_complete();
