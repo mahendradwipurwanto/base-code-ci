@@ -1,29 +1,33 @@
   <!-- JS Plugins Init. -->
-<script>
-    introJs().setOptions({
-        disableInteraction: true,
-        steps: [{
-            intro: "Welcome, we will briefly explain our feature`s"
-        }]
-    }).start();
+  <script>
+  	function tour() {
+  		introJs().setOptions({
+  			disableInteraction: true,
+  			steps: [{
+  				intro: "Welcome, we will briefly explain our feature`s"
+  			}]
+  		}).start();
+  	}
 
-	$(document).ready(function () {
-        $( 'table.table').each( function() {
-            $($(this).attr('id')).DataTable({
-                responsive: true
-            });
-        });
+  	$(document).ready(function () {
+  		$('table.table').each(function () {
+  			$($(this).attr('id')).DataTable({
+  				responsive: true
+  			});
+  		});
 
-        //  ckeditor
-        $( 'textarea.editor').each( function() {
-            CKEDITOR.replace( $(this).attr('id') );
-        });
-	})
+  		//  ckeditor
+  		$('textarea.editor').each(function () {
+  			CKEDITOR.replace($(this).attr('id'));
+  		});
+  	})
 
-</script>
+  </script>
 
-</body>
-</html>
+  </body>
 
-</body>
-</html>
+  </html>
+
+  </body>
+
+  </html>
