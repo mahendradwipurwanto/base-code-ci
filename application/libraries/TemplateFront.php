@@ -17,6 +17,11 @@ class TemplateFront
 
     public function view($content, $data = null)
     {
+        $data['web_title'] = $this->getSettingsValue('web_title');
+        $data['web_desc'] = $this->getSettingsValue('web_desc');
+        $data['web_icon'] = $this->getSettingsValue('web_icon');
+        $data['web_logo'] = $this->getSettingsValue('web_logo');
+
         $this->_ci->load->view('template/frontend/header', $data);
         $this->_ci->load->view('template/alert', $data);
         $this->_ci->load->view('template/frontend/navbar', $data);
