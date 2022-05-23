@@ -70,8 +70,8 @@ class CreateDb
                 ('mailer_password', '1234', UNIX_TIMESTAMP(NOW())),
                 ('mailer_port', '587', UNIX_TIMESTAMP(NOW())),
                 ('mailer_username', 'ngodingin.indonesia@gmail.com', UNIX_TIMESTAMP(NOW())),
-                ('web_title', $dbName, UNIX_TIMESTAMP(NOW())),
-                ('web_desc', 'Base Project', UNIX_TIMESTAMP(NOW())),
+                ('web_title', 'Base Project', UNIX_TIMESTAMP(NOW())),
+                ('web_desc', 'This is Base Project Template', UNIX_TIMESTAMP(NOW())),
                 ('web_icon', 'favicon.ico', UNIX_TIMESTAMP(NOW())),
                 ('web_logo', 'favicon.ico', UNIX_TIMESTAMP(NOW()))
             ");
