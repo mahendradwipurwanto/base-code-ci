@@ -27,9 +27,11 @@ class CreateDb
      * @return array
      */
     public function exec($dbName)
-    {
+    {   
+        $now = time();
+
         // set new database name
-        $dbName = isset($dbName) ? $dbName : "db_".time();
+        $dbName = isset($dbName) ? $dbName : "db_{$now}";
 
         // create database
         $sqlDb = $this->_ci->dbforge->create_database("$dbName");
@@ -63,7 +65,7 @@ class CreateDb
                 ) ENGINE=INNODB CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
             ");
 
-            $dynamicDB->query("INSERT INTO tb_settings (`key`, `value`, `created_at`) VALUES
+            $dynamicDB->query("INSERT INTO `tb_settings` (`key`, `value`, `created_at`) VALUES
                 ('mailer_alias', 'Ngodingin Indonesia', UNIX_TIMESTAMP(NOW())),
                 ('mailer_host', 'smtp.gmail.com', UNIX_TIMESTAMP(NOW())),
                 ('mailer_mode', '0', UNIX_TIMESTAMP(NOW())),
@@ -74,6 +76,38 @@ class CreateDb
                 ('web_desc', 'This is Base Project Template', UNIX_TIMESTAMP(NOW())),
                 ('web_icon', 'favicon.ico', UNIX_TIMESTAMP(NOW())),
                 ('web_logo', 'favicon.ico', UNIX_TIMESTAMP(NOW()))
+            ");
+
+            $dynamicDB->query("CREATE TABLE `tb_auth`(  
+                `user_id` INT(11) NOT NULL AUTO_INCREMENT,
+                `email` VARCHAR(50) NOT NULL,
+                `password` VARCHAR(255) NOT NULL,
+                `role` INT(5) NOT NULL DEFAULT 2 COMMENT '0: SU; 1: Admin; 2: User',
+                `status` INT(5) NOT NULL COMMENT '0: unverified; 1: verified; 2: suspend',
+                `created_at` INT(11) NOT NULL DEFAULT 0,
+                PRIMARY KEY (`user_id`)
+                ) ENGINE=INNODB CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            ");
+
+            $dynamicDB->query("INSERT INTO `tb_auth` (`user_id`, `email`, `password`, `role`, `status`, `created_at`) VALUES
+                (1, 'ngodingin.indonesia@gmail.com', '$2y$10$1hg1pDmFo9NYLXLuKxr86.qZpBwWcFo.gQgLLye5Hsk9VXmZqdW12', 0, 1, {$now}),
+                (2, 'info@admin.com', '$2y$10$1hg1pDmFo9NYLXLuKxr86.qZpBwWcFo.gQgLLye5Hsk9VXmZqdW12', 1, 1, {$now}),
+                (3, 'user@user.com', '$2y$10$1hg1pDmFo9NYLXLuKxr86.qZpBwWcFo.gQgLLye5Hsk9VXmZqdW12', 2, 1, {$now})
+            ");
+
+            $dynamicDB->query("CREATE TABLE `tb_user`(  
+                `user_id` INT(11) NOT NULL,
+                `name` VARCHAR(50) NOT NULL,
+                `gender` CHAR(1),
+                `address` TEXT,
+                `phone` VARCHAR(20)
+                ) ENGINE=INNODB CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            ");
+
+            $dynamicDB->query("INSERT INTO `tb_user` (`user_id`, `name`, `gender`, `address`, `phone`) VALUES
+                (1, 'Super Admin', NULL, NULL, NULL),
+                (2, 'Admin', NULL, NULL, NULL),
+                (2, 'Test User', NULL, NULL, NULL),                
             ");
 
             $dynamicDB->trans_complete();
@@ -89,13 +123,13 @@ class CreateDb
                 $dynamicDB->trans_commit();
                 return [
                     'status' => true,
-                    'data' => 'Berhasil'
+                    'data' => 'Successfuly execute query'
                 ];
             }
         } else {
             return [
                 'status' => false,
-                'data' => 'Gagal'
+                'data' => 'Failed to created database'
             ];
         }
     }
