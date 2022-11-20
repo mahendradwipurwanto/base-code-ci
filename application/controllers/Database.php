@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class createDb extends CI_Controller
+class Database extends CI_Controller
 {
 
     // construct
